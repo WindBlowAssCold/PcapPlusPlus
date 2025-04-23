@@ -183,7 +183,8 @@ namespace pcpp
 		    std::unique_ptr<FILE, PcloseDeleter>(POPEN(command.c_str(), "r"));
 		if (!pipe)
 		{
-			throw std::runtime_error("Error executing command: " + command);
+			return std::string();
+			//throw std::runtime_error("Error executing command: " + command);
 		}
 
 		std::array<char, 128> buffer{};

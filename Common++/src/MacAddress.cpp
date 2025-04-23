@@ -13,7 +13,8 @@ namespace pcpp
 		if (snprintf(str, sizeof str, "%02x:%02x:%02x:%02x:%02x:%02x", m_Address[0], m_Address[1], m_Address[2],
 		             m_Address[3], m_Address[4], m_Address[5]) < 0)
 		{
-			throw std::runtime_error("Conversion of MAC address to string failed");
+			return std::string();
+			//throw std::runtime_error("Conversion of MAC address to string failed");
 		}
 		return str;
 	}
@@ -27,7 +28,8 @@ namespace pcpp
 		    sscanf(address.c_str(), "%x:%x:%x:%x:%x:%x", &values[0], &values[1], &values[2], &values[3], &values[4],
 		           &values[5]) != 6)
 		{
-			throw std::invalid_argument("Invalid MAC address format, should be xx:xx:xx:xx:xx:xx");
+			return;
+			//throw std::invalid_argument("Invalid MAC address format, should be xx:xx:xx:xx:xx:xx");
 		}
 		for (int i = 0; i < 6; ++i)
 		{

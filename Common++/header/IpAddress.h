@@ -664,14 +664,22 @@ namespace pcpp
 		/// @throws std::invalid_argument The provided string does not represent a valid address and netmask format.
 		IPNetwork(const std::string& addressAndNetmask)
 		{
-			try
+			if (addressAndNetmask.find(":") != std::string::npos)
 			{
 				m_IPv4Network = std::unique_ptr<IPv4Network>(new IPv4Network(addressAndNetmask));
 			}
-			catch (const std::invalid_argument&)
+			else
 			{
 				m_IPv6Network = std::unique_ptr<IPv6Network>(new IPv6Network(addressAndNetmask));
 			}
+			//try
+			//{
+			//	m_IPv4Network = std::unique_ptr<IPv4Network>(new IPv4Network(addressAndNetmask));
+			//}
+			//catch (const std::invalid_argument&)
+			//{
+			//	m_IPv6Network = std::unique_ptr<IPv6Network>(new IPv6Network(addressAndNetmask));
+			//}
 		}
 
 		/// A copy c'tor for this class

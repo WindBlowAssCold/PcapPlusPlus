@@ -134,7 +134,8 @@ namespace pcpp
 			{
 				if (curExt == nullptr)
 				{
-					throw std::logic_error("curExt is nullptr");
+					return;
+					//throw std::logic_error("curExt is nullptr");
 				}
 				curExt->setNextHeader(newExt);
 				curExt = curExt->getNextHeader();

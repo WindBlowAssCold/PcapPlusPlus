@@ -172,7 +172,8 @@ namespace pcpp
 			auto result = dynamic_cast<Asn1RecordType*>(this);
 			if (result == nullptr)
 			{
-				throw std::bad_cast();
+				return nullptr;
+				//throw std::bad_cast();
 			}
 			return result;
 		}

@@ -83,14 +83,14 @@ namespace pcpp
 		if (tokens[3] != "IN" || tokens[4] != "IP4")
 			return IPv4Address::Zero;
 
-		try
-		{
+		//try
+		//{
 			return IPv4Address(tokens[5]);
-		}
-		catch (const std::exception&)
-		{
-			return IPv4Address::Zero;
-		}
+		//}
+		//catch (const std::exception&)
+		//{
+		//	return IPv4Address::Zero;
+		//}
 	}
 
 	uint16_t SdpLayer::getMediaPort(const std::string& mediaType) const

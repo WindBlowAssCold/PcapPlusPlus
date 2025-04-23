@@ -104,7 +104,8 @@ namespace pcpp
 	{
 		if (address == AddressType::Unknown)
 		{
-			throw std::invalid_argument("Cannot set the address to Address::Unknown");
+			return;
+			//throw std::invalid_argument("Cannot set the address to Address::Unknown");
 		}
 
 		setAddressValue(static_cast<uint8_t>(address));

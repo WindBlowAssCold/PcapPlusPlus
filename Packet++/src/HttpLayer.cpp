@@ -215,18 +215,20 @@ namespace pcpp
 	HttpRequestFirstLine::HttpRequestFirstLine(HttpRequestLayer* httpRequest, HttpRequestLayer::HttpMethod method,
 	                                           HttpVersion version, const std::string& uri)
 	{
-		try  // throw(HttpRequestFirstLineException)
-		{
+		//try  // throw(HttpRequestFirstLineException)
+		//{
 			if (method == HttpRequestLayer::HttpMethodUnknown)
 			{
-				m_Exception.setMessage("Method supplied was HttpMethodUnknown");
-				throw m_Exception;
+			    return;
+				//m_Exception.setMessage("Method supplied was HttpMethodUnknown");
+				//throw m_Exception;
 			}
 
 			if (version == HttpVersionUnknown)
 			{
-				m_Exception.setMessage("Version supplied was HttpVersionUnknown");
-				throw m_Exception;
+			    return;
+				//m_Exception.setMessage("Version supplied was HttpVersionUnknown");
+				//throw m_Exception;
 			}
 
 			m_HttpRequest = httpRequest;
@@ -246,15 +248,15 @@ namespace pcpp
 			memcpy(m_HttpRequest->m_Data, firstLine.c_str(), m_HttpRequest->m_DataLen);
 
 			m_IsComplete = true;
-		}
-		catch (const HttpRequestFirstLineException&)
-		{
-			throw;
-		}
-		catch (...)
-		{
-			std::terminate();
-		}
+		//}
+		//catch (const HttpRequestFirstLineException&)
+		//{
+		//	throw;
+		//}
+		//catch (...)
+		//{
+		//	std::terminate();
+		//}
 	}
 
 	HttpRequestLayer::HttpMethod HttpRequestFirstLine::parseMethod(const char* data, size_t dataLen)
@@ -932,14 +934,16 @@ namespace pcpp
 	{
 		if (statusCode.isUnsupportedCode())
 		{
-			m_Exception.setMessage("Status code supplied was " + statusCodeExplanationStringMap.at(statusCode));
-			throw m_Exception;
+			//m_Exception.setMessage("Status code supplied was " + statusCodeExplanationStringMap.at(statusCode));
+			//throw m_Exception;
+			return;
 		}
 
 		if (version == HttpVersionUnknown)
 		{
-			m_Exception.setMessage("Version supplied was HttpVersionUnknown");
-			throw m_Exception;
+			//m_Exception.setMessage("Version supplied was HttpVersionUnknown");
+			//throw m_Exception;
+			return;
 		}
 
 		m_HttpResponse = httpResponse;

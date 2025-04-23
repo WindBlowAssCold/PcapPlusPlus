@@ -142,18 +142,20 @@ namespace pcpp
 
 	SipRequestFirstLine::SipRequestFirstLine(SipRequestLayer* sipRequest, SipRequestLayer::SipMethod method,
 	                                         const std::string& version, const std::string& uri)
-	try  // throw(SipRequestFirstLineException)
+	//try  // throw(SipRequestFirstLineException)
 	{
 		if (method == SipRequestLayer::SipMethodUnknown)
 		{
-			m_Exception.setMessage("Method supplied was SipMethodUnknown");
-			throw m_Exception;
+			return;
+			//m_Exception.setMessage("Method supplied was SipMethodUnknown");
+			//throw m_Exception;
 		}
 
 		if (version == "")
 		{
-			m_Exception.setMessage("Version supplied was empty string");
-			throw m_Exception;
+			return;
+			//m_Exception.setMessage("Version supplied was empty string");
+			//throw m_Exception;
 		}
 
 		m_SipRequest = sipRequest;
@@ -173,14 +175,14 @@ namespace pcpp
 
 		m_IsComplete = true;
 	}
-	catch (const SipRequestFirstLineException&)
-	{
-		throw;
-	}
-	catch (...)
-	{
-		std::terminate();
-	}
+	//catch (const SipRequestFirstLineException&)
+	//{
+	//	throw;
+	//}
+	//catch (...)
+	//{
+	//	std::terminate();
+	//}
 
 	SipRequestLayer::SipMethod SipRequestFirstLine::parseMethod(const char* data, size_t dataLen)
 	{

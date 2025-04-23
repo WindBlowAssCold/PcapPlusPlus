@@ -1040,15 +1040,15 @@ namespace pcpp
 			{
 				if (m_InterfaceDetails.name.find(curAdapterInfo->AdapterName) != std::string::npos)
 				{
-					try
-					{
+					//try
+					//{
 						m_DefaultGateway = IPv4Address(curAdapterInfo->GatewayList.IpAddress.String);
-					}
-					catch (const std::exception& e)
-					{
-						(void)e;  // Suppress the unreferenced local variable warning when PCPP_LOG_ERROR is disabled
-						PCPP_LOG_ERROR("Error retrieving default gateway address: " << e.what());
-					}
+					//}
+					//catch (const std::exception& e)
+					//{
+					//	(void)e;  // Suppress the unreferenced local variable warning when PCPP_LOG_ERROR is disabled
+					//	PCPP_LOG_ERROR("Error retrieving default gateway address: " << e.what());
+					//}
 					break;
 				}
 

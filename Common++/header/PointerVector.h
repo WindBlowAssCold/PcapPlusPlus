@@ -142,21 +142,21 @@ namespace pcpp
 		{
 			if (element == nullptr)
 			{
-				throw std::invalid_argument("Element is nullptr");
+				// throw std::invalid_argument("Element is nullptr");
 			}
 
-			try
-			{
-				m_Vector.push_back(element);
-			}
-			catch (const std::exception&)
-			{
-				if (freeElementOnError)
-				{
-					delete element;
-				}
-				throw;
-			}
+			// try
+			//{
+			m_Vector.push_back(element);
+			//}
+			// catch (const std::exception&)
+			//{
+			//	if (freeElementOnError)
+			//	{
+			//		delete element;
+			//	}
+			//	throw;
+			//}
 		}
 
 		/// Add a new element to the vector that has been managed by an unique pointer.

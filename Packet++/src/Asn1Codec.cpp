@@ -180,35 +180,41 @@ namespace pcpp
 		auto decodedRecord = decodeTagAndCreateRecord(data, dataLen, tagLen);
 
 		uint8_t lengthLen;
-		try
-		{
-			lengthLen = decodedRecord->decodeLength(data + tagLen, dataLen - tagLen);
-		}
-		catch (...)
+		//try
+		//{
+		lengthLen = decodedRecord->decodeLength(data + tagLen, dataLen - tagLen);
+		if (lengthLen == 0)
 		{
 			delete decodedRecord;
-			throw;
+			return nullptr;
 		}
+		//}
+		//catch (...)
+		//{
+		//	delete decodedRecord;
+		//	throw;
+		//}
 
 		decodedRecord->m_TotalLength = tagLen + lengthLen + decodedRecord->m_ValueLength;
 		if (decodedRecord->m_TotalLength < decodedRecord->m_ValueLength ||  // check for overflow
 		    decodedRecord->m_TotalLength > dataLen)
 		{
 			delete decodedRecord;
-			throw std::invalid_argument("Cannot decode ASN.1 record, data doesn't contain the entire record");
+			return nullptr;
+			//throw std::invalid_argument("Cannot decode ASN.1 record, data doesn't contain the entire record");
 		}
 
 		if (!lazy)
 		{
-			try
-			{
+			//try
+			//{
 				decodedRecord->decodeValue(const_cast<uint8_t*>(data) + tagLen + lengthLen, lazy);
-			}
-			catch (...)
-			{
-				delete decodedRecord;
-				throw;
-			}
+			//}
+			//catch (...)
+			//{
+			//	delete decodedRecord;
+			//	throw;
+			//}
 		}
 		else
 		{
@@ -232,7 +238,8 @@ namespace pcpp
 	{
 		if (dataLen < 1)
 		{
-			throw std::invalid_argument("Cannot decode ASN.1 record tag");
+			return nullptr;
+			//throw std::invalid_argument("Cannot decode ASN.1 record tag");
 		}
 
 		tagLen = 1;
@@ -268,12 +275,14 @@ namespace pcpp
 		{
 			if (dataLen < 2)
 			{
-				throw std::invalid_argument("Cannot decode ASN.1 record tag");
+				return nullptr;
+				//throw std::invalid_argument("Cannot decode ASN.1 record tag");
 			}
 
 			if ((data[1] & 0x80) != 0)
 			{
-				throw std::invalid_argument("ASN.1 tags with value larger than 127 are not supported");
+				return nullptr;
+				//throw std::invalid_argument("ASN.1 tags with value larger than 127 are not supported");
 			}
 
 			tagType = data[1] & 0x7f;
@@ -364,7 +373,8 @@ namespace pcpp
 	{
 		if (dataLen < 1)
 		{
-			throw std::invalid_argument("Cannot decode ASN.1 record length");
+			return 0;
+			//throw std::invalid_argument("Cannot decode ASN.1 record length");
 		}
 
 		// Check 8th bit
@@ -384,7 +394,8 @@ namespace pcpp
 
 		if (dataLen < static_cast<size_t>(actualLengthBytes) + 1)
 		{
-			throw std::invalid_argument("Cannot decode ASN.1 record length");
+			return 0;
+			//throw std::invalid_argument("Cannot decode ASN.1 record length");
 		}
 
 		for (int i = 0; i < actualLengthBytes; i++)
@@ -392,7 +403,8 @@ namespace pcpp
 			size_t partialValueLength = m_ValueLength << 8;
 			if (partialValueLength < m_ValueLength)  // check for overflow
 			{
-				throw std::invalid_argument("Cannot decode ASN.1 record length");
+				return 0;
+				//throw std::invalid_argument("Cannot decode ASN.1 record length");
 			}
 
 			m_ValueLength = partialValueLength | actualLengthData[i];
@@ -624,7 +636,8 @@ namespace pcpp
 		}
 		default:
 		{
-			throw std::runtime_error("An integer ASN.1 record of more than 4 bytes is not supported");
+			return;
+			//throw std::runtime_error("An integer ASN.1 record of more than 4 bytes is not supported");
 		}
 		}
 	}
@@ -670,7 +683,8 @@ namespace pcpp
 		}
 		default:
 		{
-			throw std::runtime_error("Integer value of more than 4 bytes is not supported");
+			return {};
+			//throw std::runtime_error("Integer value of more than 4 bytes is not supported");
 		}
 		}
 
